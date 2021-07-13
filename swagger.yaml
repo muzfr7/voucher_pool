@@ -1,0 +1,9 @@
+swagger: "2.0"
+info:
+  description: "This is a server for Voucher Pool. All the endpoints are thoughtfully documented here.."
+  version: 1.0.0
+  title: "Voucher Pool"
+basePath: "/api/v1"
+schemes:
+  - "https"
+paths:
