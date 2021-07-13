@@ -21,17 +21,17 @@ func (Customer) TableName() string {
 	return "customers"
 }
 
-// Handler provides customer related handler methods.
+// Handler defines contracts for customer handler.
 type Handler interface {
 	Create(c *gin.Context)
 }
 
-// Service provides customer related service methods.
+// Service defines contracts for customer service.
 type Service interface {
 	//
 }
 
-// Repository provides customer related repository methods.
+// Repository defines contracts for customer repository.
 type Repository interface {
 	Create(ctx context.Context, c *Customer) (*Customer, error)
 }
