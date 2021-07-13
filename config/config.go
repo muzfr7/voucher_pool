@@ -10,6 +10,7 @@ import (
 type EnvironmentConfig struct {
 	// general
 	AppName string `envconfig:"APP_NAME" required:"true" default:"voucher pool"`
+	AppPort string `envconfig:"APP_PORT" required:"true" default:"8080"`
 
 	// Database
 	DBDriver string `envconfig:"DB_DRIVER" required:"true" default:"mysql"`

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -16,10 +17,12 @@ import (
 	customerUsecase "github.com/muzfr7/voucher_pool/app/usecases/customer"
 )
 
-var (
+const (
 	// baseRoute will be used by all routes.
-	baseRouteV1 string
+	baseRouteV1 string = "/api/v1/"
+)
 
+var (
 	// env will contain envs.
 	env config.EnvironmentConfig
 
@@ -28,8 +31,6 @@ var (
 )
 
 func init() {
-	baseRouteV1 = "/api/v1/"
-
 	// load environment variables from .env file if present
 	if _, err := os.Stat("./.env"); err == nil {
 		if err = config.Export("./.env"); err != nil {
@@ -78,5 +79,5 @@ func createRoutes(pHandler pingInterface.Handler, cHandler customerDomain.Handle
 // runServer will start the server.
 func runServer() {
 	// listen and serve on 0.0.0.0:8080 (for windows "localhost:8080")
-	log.Fatalln(router.Run(":8080"))
+	log.Fatalln(router.Run(fmt.Sprintf(":%s", env.AppPort)))
 }
