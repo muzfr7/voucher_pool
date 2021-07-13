@@ -1,4 +1,4 @@
-package environmentconfig
+package config
 
 import (
 	"bufio"

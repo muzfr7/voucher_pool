@@ -8,7 +8,7 @@ import (
 	"github.com/kelseyhightower/envconfig"
 	customerDomain "github.com/muzfr7/voucher_pool/app/domain/customer"
 	infraMySQL "github.com/muzfr7/voucher_pool/app/infrastructure/mysql"
-	"github.com/muzfr7/voucher_pool/environmentconfig"
+	"github.com/muzfr7/voucher_pool/config"
 
 	repository "github.com/muzfr7/voucher_pool/app/infrastructure/repository"
 	customerInterface "github.com/muzfr7/voucher_pool/app/interfaces/customer"
@@ -21,7 +21,7 @@ var (
 	baseRouteV1 string
 
 	// env will contain envs.
-	env environmentconfig.EnvironmentConfig
+	env config.EnvironmentConfig
 
 	// creates a gin router with default middleware: logger and recovery (crash-free) middleware.
 	router = gin.Default()
@@ -32,7 +32,7 @@ func init() {
 
 	// load environment variables from .env file if present
 	if _, err := os.Stat("./.env"); err == nil {
-		if err = environmentconfig.Export("./.env"); err != nil {
+		if err = config.Export("./.env"); err != nil {
 			log.Fatal(err)
 		}
 	}
