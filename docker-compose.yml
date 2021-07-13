@@ -1,0 +1,33 @@
+version: '3.7'
+
+networks:
+  ttmi:
+    name: ttmi
+
+services:
+  api:
+    build: .
+    container_name: voucher_pool_api
+    env_file:
+      - ".env"
+    networks:
+      - ttmi
+    ports:
+      - "8080:8080"
+    restart: always
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:5.7
+    container_name: voucher_pool_mysql
+    networks:
+      - ttmi
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql:/var/lib/mysql:cached
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: voucher_pool
+      MYSQL_ROOT_HOST: '%'
