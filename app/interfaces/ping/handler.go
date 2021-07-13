@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// Handler provides ping related handler methods.
+// Handler defines contracts for ping handler.
 type Handler interface {
 	Ping(c *gin.Context)
 }
