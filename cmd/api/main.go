@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/kelseyhightower/envconfig"
 	customerDomain "github.com/muzfr7/voucher_pool/app/domain/customer"
-	infraMySQL "github.com/muzfr7/voucher_pool/app/infrastructure/mysql"
+	"github.com/muzfr7/voucher_pool/app/infrastructure/db"
 	"github.com/muzfr7/voucher_pool/config"
 
 	repository "github.com/muzfr7/voucher_pool/app/infrastructure/repository"
@@ -46,14 +46,15 @@ func init() {
 
 func main() {
 	// instantiate mysql connection
-	dbConn := infraMySQL.NewConnection(env.DBDriver, env.DBUser, env.DBPass, env.DBHost, env.DBPort, env.DBName)
-	db, err := dbConn.Connect()
+	newDB := db.NewDatabase(env.DBDriver, env.DBUser, env.DBPass, env.DBHost, env.DBPort, env.DBName)
+	conn, err := newDB.GetConnection()
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer conn.Close()
 
 	// instantiate repositories
-	customerRepo := repository.NewCustomerRepository(db)
+	customerRepo := repository.NewCustomerRepository(conn)
 
 	// instantiate services
 	customerSVC := customerUsecase.NewService(customerRepo)
