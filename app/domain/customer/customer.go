@@ -1,7 +1,6 @@
 package customer
 
 import (
-	"context"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -28,10 +27,10 @@ type Handler interface {
 
 // Service defines contracts for customer service.
 type Service interface {
-	//
+	Create(payload *CreateCustomerRequestDTO) error
 }
 
 // Repository defines contracts for customer repository.
 type Repository interface {
-	Create(ctx context.Context, c *Customer) (*Customer, error)
+	Create(c *Customer) error
 }
