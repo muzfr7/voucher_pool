@@ -1,8 +1,6 @@
 package repository
 
 import (
-	"context"
-
 	"github.com/jinzhu/gorm"
 	customerDomain "github.com/muzfr7/voucher_pool/app/domain/customer"
 )
@@ -20,6 +18,11 @@ func NewCustomerRepository(db *gorm.DB) customerDomain.Repository {
 }
 
 // Create will store a customer in database.
-func (r *repository) Create(ctx context.Context, c *customerDomain.Customer) (*customerDomain.Customer, error) {
-	return nil, nil
+func (r *repository) Create(c *customerDomain.Customer) error {
+	err := r.db.Table(c.TableName()).Create(c).Error
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
